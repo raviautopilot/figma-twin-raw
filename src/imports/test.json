@@ -1,0 +1,1209 @@
+{
+  "schemes": [],
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a production-ready boilerplate Go microservice API.",
+    "title": "Go Microservice Boilerplate API",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "name": "API Support",
+      "url": "http://www.swagger.io/support",
+      "email": "support@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0"
+  },
+  "host": "",
+  "basePath": "/",
+  "paths": {
+    "/api/v1/config/dependencies": {
+      "get": {
+        "description": "Get a paginated list of configuration dependencies",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Dependencies"
+        ],
+        "summary": "List configuration dependencies",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Limit (default 10)",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "Offset (default 0)",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/model.CfgDependency"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create a new configuration dependency",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Dependencies"
+        ],
+        "summary": "Create configuration dependency",
+        "parameters": [
+          {
+            "description": "Dependency to create",
+            "name": "dependency",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/model.CfgDependency"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/model.CfgDependency"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/config/dependencies/{id}": {
+      "get": {
+        "description": "Get a configuration dependency by ID",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Dependencies"
+        ],
+        "summary": "Get configuration dependency",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Dependency ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/model.CfgDependency"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Update a configuration dependency by ID",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Dependencies"
+        ],
+        "summary": "Update configuration dependency",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Dependency ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Dependency data to update",
+            "name": "dependency",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/model.CfgDependency"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/model.CfgDependency"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Soft delete a configuration dependency by ID",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Dependencies"
+        ],
+        "summary": "Delete configuration dependency",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Dependency ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/config/modules": {
+      "get": {
+        "description": "Get a paginated list of configuration modules",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Modules"
+        ],
+        "summary": "List configuration modules",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Limit (default 10)",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "Offset (default 0)",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/model.CfgModule"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create a new configuration module",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Modules"
+        ],
+        "summary": "Create configuration module",
+        "parameters": [
+          {
+            "description": "Module to create",
+            "name": "module",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/model.CfgModule"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/model.CfgModule"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/config/modules/{id}": {
+      "get": {
+        "description": "Get a configuration module by ID",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Modules"
+        ],
+        "summary": "Get configuration module",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Module ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/model.CfgModule"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Update a configuration module by ID",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Modules"
+        ],
+        "summary": "Update configuration module",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Module ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Module data to update",
+            "name": "module",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/model.CfgModule"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/model.CfgModule"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Soft delete a configuration module by ID",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Modules"
+        ],
+        "summary": "Delete configuration module",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Module ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/config/types": {
+      "get": {
+        "description": "Get a paginated list of configuration types",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Types"
+        ],
+        "summary": "List configuration types",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Limit (default 10)",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "Offset (default 0)",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/model.CfgType"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create a new configuration type",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Types"
+        ],
+        "summary": "Create configuration type",
+        "parameters": [
+          {
+            "description": "Type to create",
+            "name": "type",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/model.CfgType"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/model.CfgType"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/config/types/{id}": {
+      "get": {
+        "description": "Get a configuration type by ID",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Types"
+        ],
+        "summary": "Get configuration type",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Type ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/model.CfgType"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Update a configuration type by ID",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Types"
+        ],
+        "summary": "Update configuration type",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Type ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Type data to update",
+            "name": "type",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/model.CfgType"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/model.CfgType"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Soft delete a configuration type by ID",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Types"
+        ],
+        "summary": "Delete configuration type",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Type ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/config/values": {
+      "get": {
+        "description": "Get a paginated list of configuration values",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Values"
+        ],
+        "summary": "List configuration values",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Limit (default 10)",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "Offset (default 0)",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/model.CfgValue"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create a new configuration value",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Values"
+        ],
+        "summary": "Create configuration value",
+        "parameters": [
+          {
+            "description": "Value to create",
+            "name": "value",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/model.CfgValue"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/model.CfgValue"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/config/values/{id}": {
+      "get": {
+        "description": "Get a configuration value by ID",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Values"
+        ],
+        "summary": "Get configuration value",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Value ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/model.CfgValue"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Update a configuration value by ID",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Values"
+        ],
+        "summary": "Update configuration value",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Value ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Value data to update",
+            "name": "value",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/model.CfgValue"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/model.CfgValue"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Soft delete a configuration value by ID",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Values"
+        ],
+        "summary": "Delete configuration value",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Value ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/handler.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "description": "Get the health status of the microservice",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "System"
+        ],
+        "summary": "Health Check",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handler.HealthResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "handler.ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        }
+      }
+    },
+    "handler.HealthResponse": {
+      "type": "object",
+      "properties": {
+        "rtwin_status": {
+          "type": "string",
+          "example": "UP"
+        },
+        "status": {
+          "type": "string",
+          "example": "UP"
+        },
+        "timestamp": {
+          "type": "string",
+          "example": "2026-07-04T01:07:40+05:30"
+        }
+      }
+    },
+    "model.CfgDependency": {
+      "type": "object",
+      "properties": {
+        "child_value_code": {
+          "type": "string",
+          "example": "INACTIVE"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "created_by": {
+          "type": "integer"
+        },
+        "deleted_at": {
+          "type": "string"
+        },
+        "dependency_type": {
+          "type": "string",
+          "example": "REQUIRES"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "is_active": {
+          "type": "boolean"
+        },
+        "parent_value_code": {
+          "type": "string",
+          "example": "ACTIVE"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "updated_by": {
+          "type": "integer"
+        }
+      }
+    },
+    "model.CfgModule": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "created_by": {
+          "type": "integer"
+        },
+        "deleted_at": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "is_active": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "updated_by": {
+          "type": "integer"
+        }
+      }
+    },
+    "model.CfgType": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "created_by": {
+          "type": "integer"
+        },
+        "deleted_at": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "example": "A temporary type for testing"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "is_active": {
+          "type": "boolean"
+        },
+        "module_code": {
+          "type": "string",
+          "example": "config"
+        },
+        "name": {
+          "type": "string",
+          "example": "Test Type"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "updated_by": {
+          "type": "integer"
+        }
+      }
+    },
+    "model.CfgValue": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "created_by": {
+          "type": "integer"
+        },
+        "deleted_at": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "example": "A temporary value for testing"
+        },
+        "display_order": {
+          "type": "integer",
+          "example": 1
+        },
+        "id": {
+          "type": "integer"
+        },
+        "is_active": {
+          "type": "boolean"
+        },
+        "type_code": {
+          "type": "string",
+          "example": "status"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "updated_by": {
+          "type": "integer"
+        },
+        "value": {
+          "type": "string",
+          "example": "Test Value Content"
+        }
+      }
+    }
+  }
+}

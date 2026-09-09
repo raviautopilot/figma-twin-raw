@@ -1,0 +1,10 @@
+{
+  "description": "Streamline ERP configuration with an intuitive interface for managing modules, types, and values, enhancing efficiency for businesses.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
